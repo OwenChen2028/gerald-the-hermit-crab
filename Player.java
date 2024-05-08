@@ -28,31 +28,40 @@ public class Player extends Entity
     {
         x = 100;
         y = 100;
-        speed = 20;
+        baseV = 10;
+        speed = new double[2];
+        speed[0] = 0;
+        speed[1] = 0;
+        accel = new double[2];
+        accel[0] = 0;
+        accel[1] = -1 * gravity;
     }
     public void update()
     {
-        if (keyH.getUpPressed() == true)
+        boolean dir = false;
+        if (keyH.getLeftPressed() == true)
         {
-            y -= speed;
+            speed[0] = -1 * baseV;
+            dir = true;
         }
-        else if (keyH.getLeftPressed() == true)
+        if (keyH.getRightPressed() == true)
         {
-            x -= speed;
+            speed[0] = baseV;
+            dir = true;
         }
-        else if (keyH.getRightPressed() == true)
-        {
-            x += speed;
+        if (dir == false) {
+            speed[0] = 0;
         }
-        else if (keyH.getDownPressed() == true)
-        {
-            y += speed;
-        }
+        
+        x += speed[0];
+        y += speed[1];
+        speed[0] += accel[0];
+        speed[1] += accel[1];
     }
     public void draw(Graphics2D g2)
     {
         g2.setColor(Color.white);
         
-        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+        g2.fillRect((int) x, (int) y, gp.tileSize, gp.tileSize);
     }
 }

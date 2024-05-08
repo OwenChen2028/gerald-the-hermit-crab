@@ -17,11 +17,9 @@ public class GamePanel extends JPanel implements Runnable
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
-    
-    
-    
+
     //FPS
-    private int fps = 30;
+    private int fps = 60;
     
     public GamePanel()
     {
@@ -51,9 +49,7 @@ public class GamePanel extends JPanel implements Runnable
             update();
             //2: draw screen with new game state
             repaint();
-            
-            
-            
+                        
             try 
             {
                 double remainingTime = nextDrawTime - System.nanoTime();

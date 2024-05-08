@@ -8,10 +8,12 @@ import java.io.*;
  */
 public class Entity
 {
-    public int x;
-    public int y;
-    public int speed;
+    public double x;
+    public double y;
     
+    public double baseV;
+    public double gravity = -0.5;
     
-    public String direction;
+    public double[] speed;
+    public double[] accel;
 }
