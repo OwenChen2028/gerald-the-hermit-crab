@@ -1,6 +1,7 @@
-
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+
 //Written 5/6/24
 public class GamePanel extends JPanel implements Runnable
 {
@@ -17,6 +18,8 @@ public class GamePanel extends JPanel implements Runnable
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
+    
+    ArrayList<Tile> tileList = new ArrayList<Tile>();
 
     //FPS
     private int fps = 60;
@@ -33,6 +36,16 @@ public class GamePanel extends JPanel implements Runnable
     {
         gameThread = new Thread(this);
         gameThread.start();
+        
+        for (int i = 0; i < 4; i++) {
+            tileList.add(new Tile(this, 100 + tileSize * i, 500));
+        }
+        for (int i = 0; i < 4; i++) {
+            tileList.add(new Tile(this, 400 + tileSize * i, 600));
+        }
+        for (int i = 0; i < 4; i++) {
+            tileList.add(new Tile(this, 700 + tileSize * i, 500));
+        }
     }
     public void run()
     {
@@ -73,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable
     }
     public void update()
     {
-        player.update();
+        player.update(tileList);
     }
     public void paintComponent(Graphics g)
     {
@@ -81,7 +94,17 @@ public class GamePanel extends JPanel implements Runnable
         
         Graphics2D g2 = (Graphics2D)g;
         
-        player.draw(g2);
+         //int playerX = (screenWidth - tileSize) / 2;
+         //int playerY = (screenHeight - tileSize) / 2;
+        
+         //player.draw(g2, playerX, playerY);
+                 
+        player.draw(g2, Math.round((float) player.getX()), Math.round((float) player.getY()));
+        
+        for (Tile tile : tileList) {
+            tile.draw(g2, Math.round((float) tile.getX()), Math.round((float) tile.getY()));
+        }
+        
         g2.dispose();
     }
     

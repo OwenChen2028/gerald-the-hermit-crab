@@ -1,12 +1,6 @@
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
-/**
- * Write a description of class KeyHandler here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class KeyHandler implements KeyListener
 {
     private boolean upPressed;

@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+
 //Written 5/6/24
 public class Basic
 {
