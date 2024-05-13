@@ -132,7 +132,7 @@ public class Player extends Entity
         speed[0] += accel[0];
         speed[1] += accel[1];
         
-        if (dir) {
+        if (dir && jumpReady) {
             spriteCounter++;
             if (spriteCounter > 1) // how fast the sprites change
             {
