@@ -17,8 +17,9 @@ public class GamePanel extends JPanel implements Runnable
     
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyH);
     
+    // game objects
+    Player player = new Player(this, keyH);
     ArrayList<Tile> tileList = new ArrayList<Tile>();
 
     //FPS
@@ -36,7 +37,9 @@ public class GamePanel extends JPanel implements Runnable
     {
         gameThread = new Thread(this);
         gameThread.start();
-        
+    }
+    public void createGameObjects() {
+        // create platforms
         for (int i = 0; i < 4; i++) {
             tileList.add(new Tile(this, 100 + tileSize * i, 500));
         }

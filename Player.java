@@ -134,7 +134,7 @@ public class Player extends Entity
         
         if (dir) {
             spriteCounter++;
-            if (spriteCounter > 3) // how fast the sprites change
+            if (spriteCounter > 1) // how fast the sprites change
             {
                 spriteNum++;
                 if (spriteNum == 12) {

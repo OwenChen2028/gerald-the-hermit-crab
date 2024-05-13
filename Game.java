@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 
 //Written 5/6/24
-public class Basic
+public class Game
 {
     public static void main(String[] args)
     {
@@ -18,6 +18,7 @@ public class Basic
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         
+        gamePanel.createGameObjects();
         gamePanel.startGameThread();
     }
 }
