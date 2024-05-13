@@ -106,7 +106,9 @@ public class Player extends Entity
             }
             if (this.isTouching(x, newY, tile, gp.tileSize)) {
                 speed[1] = 0;
-                flag = true;
+                if (newY  > y) {
+                    flag = true;
+                }
                 if (!this.isTouching(x, y, tile, gp.tileSize)) {
                     if (newY > y) {
                         y = tile.getY() - gp.tileSize - 0.001;

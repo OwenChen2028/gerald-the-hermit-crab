@@ -46,6 +46,10 @@ public class GamePanel extends JPanel implements Runnable
         for (int i = 0; i < 4; i++) {
             tileList.add(new Tile(this, 700 + tileSize * i, 500));
         }
+        
+        for (int i = 0; i < 4; i++) {
+            tileList.add(new Tile(this, 400 + tileSize * i, 300));
+        }
     }
     public void run()
     {
