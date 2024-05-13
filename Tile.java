@@ -19,7 +19,7 @@ public class Tile extends Entity
     }
     public void draw(Graphics2D g2, int xPos, int yPos)
     {
-        g2.setColor(Color.white);        
+        g2.setColor(Color.red);        
         g2.fillRect(xPos, yPos, gp.tileSize, gp.tileSize);
     }
 }

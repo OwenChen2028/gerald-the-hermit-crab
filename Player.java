@@ -1,13 +1,23 @@
 import java.awt.*;
 import java.io.*;
-import java.util.*;
+import java.util.*; 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class Player extends Entity
 {
-    GamePanel gp;
-    KeyHandler keyH;
-    double jumpImpulse;
-    boolean jumpReady;
+    private GamePanel gp;
+    private KeyHandler keyH;
+    private double jumpImpulse;
+    private boolean jumpReady;
+    
+    private BufferedImage[] right;
+    private BufferedImage[] left;
+    
+    private int spriteCounter;
+    private int spriteNum;
+    
+    BufferedImage image;
     
     public Player(GamePanel gp, KeyHandler keyH)
     {
@@ -15,10 +25,29 @@ public class Player extends Entity
         this.keyH = keyH;
         
         setDefaultStats();
+        getPlayerImage();
+        
+        spriteCounter = 0;
+        spriteNum = 1;
+        
+        image = right[0];
     }
     public void getPlayerImage()
     {
+        right = new BufferedImage[11];
+        left = new BufferedImage[11];
         
+        for (int i = 0; i <= 10; i++) {
+            try {
+                right[i] = ImageIO.read(getClass().getResourceAsStream("/sprites/crab guy" + (i + 1) + ".png"));
+                left[i] = ImageIO.read(getClass().getResourceAsStream("/sprites/crab guy left" + (i + 1) + ".png"));
+            }
+            catch (IOException e) {
+    
+                e.printStackTrace();
+    
+            }
+        }
     }
     public void setDefaultStats()
     {
@@ -100,10 +129,29 @@ public class Player extends Entity
         y += speed[1];
         speed[0] += accel[0];
         speed[1] += accel[1];
+        
+        if (dir) {
+            spriteCounter++;
+            if (spriteCounter > 3) // how fast the sprites change
+            {
+                spriteNum++;
+                if (spriteNum == 12) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
+        }
     }
     public void draw(Graphics2D g2, int xPos, int yPos)
     {
-        g2.setColor(Color.white);
-        g2.fillRect(xPos, yPos, gp.tileSize, gp.tileSize);
+        //g2.setColor(Color.white);
+        //g2.fillRect(xPos, yPos, gp.tileSize, gp.tileSize);
+        if (speed[0] > 0) {
+            image = right[spriteNum - 1];
+        }
+        else if (speed[0] < 0) {
+            image = left[spriteNum - 1];
+        }
+        g2.drawImage(image, xPos, yPos, gp.tileSize, gp.tileSize, null);
     }
 }
