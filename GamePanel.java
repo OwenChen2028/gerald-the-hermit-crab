@@ -19,8 +19,11 @@ public class GamePanel extends JPanel implements Runnable
     Thread gameThread;
     
     // game objects
-    Player player = new Player(this, keyH);
-    ArrayList<Tile> tileList = new ArrayList<Tile>();
+    private Player player = new Player(this, keyH);
+    private ArrayList<Tile> tileList = new ArrayList<Tile>();
+    
+    private double cameraX;
+    private double cameraY;
 
     //FPS
     private int fps = 60;
@@ -95,21 +98,29 @@ public class GamePanel extends JPanel implements Runnable
     {
         player.update(tileList);
     }
+    public double lerp(double start, double end, double t) { // linear interpolation, for camera
+        return start + t * (end - start);
+    }
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         
         Graphics2D g2 = (Graphics2D)g;
-        
-         //int playerX = (screenWidth - tileSize) / 2;
-         //int playerY = (screenHeight - tileSize) / 2;
-        
-         //player.draw(g2, playerX, playerY);
                  
-        player.draw(g2, Math.round((float) player.getX()), Math.round((float) player.getY()));
+        /* player.draw(g2, Math.round((float) player.getX()), Math.round((float) player.getY()));
         
         for (Tile tile : tileList) {
             tile.draw(g2, Math.round((float) tile.getX()), Math.round((float) tile.getY()));
+        } */
+        
+        // move camera
+        cameraX = lerp(cameraX, screenWidth / 2 - player.getX() - tileSize / 2, 0.1);
+        cameraY = lerp(cameraY, screenHeight / 2 - player.getY() - tileSize / 2, 0.05);
+        
+        player.draw(g2, (int) Math.round(player.getX() + cameraX), (int) Math.round(player.getY() + cameraY));
+
+        for (Tile tile : tileList) {
+            tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
         }
         
         g2.dispose();

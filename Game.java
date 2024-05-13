@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 
-//Written 5/6/24
 public class Game
 {
     public static void main(String[] args)
