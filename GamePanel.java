@@ -44,9 +44,9 @@ public class GamePanel extends JPanel implements Runnable
     }
     public void createGameObjects() {
         // create background
-        for (int i = 0; i <= 25; i++) {
-            for (int j = 0; j <= 20; j++) {
-                tileList.add(new Tile(this, (-5 + i) * tileSize, (-5 + j) * tileSize, false, "sky background"));
+        for (int i = 0; i <= 20; i++) {
+            for (int j = 0; j <= 10; j++) {
+                tileList.add(new Tile(this, (0 + i) * tileSize, (0 + j) * tileSize, false, "sky background"));
             }
         }
         // create platforms
