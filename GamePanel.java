@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable
     // game objects
     private Player player = new Player(this, keyH);
     private ArrayList<Tile> tileList = new ArrayList<Tile>();
+    private ArrayList<Tile> bgTiles = new ArrayList<Tile>();
     
     private double cameraX;
     private double cameraY;
@@ -42,6 +43,12 @@ public class GamePanel extends JPanel implements Runnable
         gameThread.start();
     }
     public void createGameObjects() {
+        // create background
+        for (int i = 0; i <= 25; i++) {
+            for (int j = 0; j <= 20; j++) {
+                tileList.add(new Tile(this, (-5 + i) * tileSize, (-5 + j) * tileSize, false, "sky background"));
+            }
+        }
         // create platforms
         for (int i = 0; i < 4; i++) {
             tileList.add(new Tile(this, (2 + i) * tileSize, (5) * tileSize, true, "grass"));
@@ -117,11 +124,15 @@ public class GamePanel extends JPanel implements Runnable
         cameraX = lerp(cameraX, screenWidth / 2 - player.getX() - tileSize / 2, 0.1);
         cameraY = lerp(cameraY, screenHeight / 2 - player.getY() - tileSize / 2, 0.05);
         
-        player.draw(g2, (int) Math.round(player.getX() + cameraX), (int) Math.round(player.getY() + cameraY));
-
         for (Tile tile : tileList) {
             tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
         }
+        
+        for (Tile tile : bgTiles) {
+            tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
+        }
+        
+        player.draw(g2, (int) Math.round(player.getX() + cameraX), (int) Math.round(player.getY() + cameraY));
         
         g2.dispose();
     }
