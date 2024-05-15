@@ -51,8 +51,8 @@ public class Player extends Entity
     }
     public void setDefaultStats()
     {
-        x = 100;
-        y = 100;
+        x = 3 * gp.tileSize;
+        y = 2 * gp.tileSize;
         baseV = 7.5;
         
         speed = new double[2];
@@ -97,29 +97,25 @@ public class Player extends Entity
             {
                 continue;
             }
-            if (this.isTouching(newX, y, tile, gp.tileSize)) {
+            if (this.isTouching(newX + 0.005, y + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
                 speed[0] = 0;
-                if (!this.isTouching(x, y, tile, gp.tileSize)) { // if not already touching
-                    if (newX > x) {
-                        x = tile.getX() - gp.tileSize - 0.001; // don't remove 0.001
-                    }
-                    else if (newX < x) {
-                        x = tile.getX() + gp.tileSize + 0.001;
-                    }
+                if (newX > x) {
+                    x = tile.getX() - gp.tileSize - 0.001; // don't remove 0.001
+                }
+                else if (newX < x) {
+                    x = tile.getX() + gp.tileSize + 0.001;
                 }
             }
-            if (this.isTouching(x, newY, tile, gp.tileSize)) {
+            if (this.isTouching(x + 0.005, newY + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
                 speed[1] = 0;
                 if (newY  > y) {
                     flag = true;
                 }
-                if (!this.isTouching(x, y, tile, gp.tileSize)) {
-                    if (newY > y) {
-                        y = tile.getY() - gp.tileSize - 0.001;
-                    }
-                    else if (newY < y) {
-                        y = tile.getY() + gp.tileSize + 0.001;
-                    }
+                if (newY > y) {
+                    y = tile.getY() - gp.tileSize - 0.001;
+                }
+                else if (newY < y) {
+                    y = tile.getY() + gp.tileSize + 0.001;
                 }
             }
         }

@@ -44,17 +44,17 @@ public class GamePanel extends JPanel implements Runnable
     public void createGameObjects() {
         // create platforms
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, 100 + tileSize * i, 500, true, "grass"));
+            tileList.add(new Tile(this, (2 + i) * tileSize, (5) * tileSize, true, "grass"));
         }
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, 400 + tileSize * i, 600, true, "grass"));
+            tileList.add(new Tile(this, (12 + i) * tileSize, (5) * tileSize, true, "grass"));
         }
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, 700 + tileSize * i, 500, true, "grass"));
+            tileList.add(new Tile(this, (7 + i) * tileSize, (3) * tileSize, true, "grass"));
         }
         
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, 400 + tileSize * i, 300, true, "grass"));
+            tileList.add(new Tile(this, (7 + i) * tileSize, (7) * tileSize, true, "grass"));
         }
     }
     public void run()
