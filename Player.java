@@ -93,6 +93,10 @@ public class Player extends Entity
         boolean flag = false;
         
         for (Tile tile : tileList) { // also need one for enemies/npcs later
+            if (tile.getIsSolid() == false)
+            {
+                continue;
+            }
             if (this.isTouching(newX, y, tile, gp.tileSize)) {
                 speed[0] = 0;
                 if (!this.isTouching(x, y, tile, gp.tileSize)) { // if not already touching

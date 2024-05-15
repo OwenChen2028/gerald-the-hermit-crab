@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Tile
-comment1.params=gp\ x\ y
-comment1.target=Tile(GamePanel,\ double,\ double)
+comment1.params=gp\ x\ y\ isSolid\ tileName
+comment1.target=Tile(GamePanel,\ double,\ double,\ boolean,\ java.lang.String)
 comment2.params=
-comment2.target=void\ getTileImage()
-comment3.params=g2\ xPos\ yPos
-comment3.target=void\ draw(java.awt.Graphics2D,\ int,\ int)
-numComments=4
+comment2.target=boolean\ getIsSolid()
+comment3.params=
+comment3.target=void\ getTileImage()
+comment4.params=g2\ xPos\ yPos
+comment4.target=void\ draw(java.awt.Graphics2D,\ int,\ int)
+numComments=5
