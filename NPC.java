@@ -4,12 +4,10 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class Player extends Entity
+public class NPC extends Entity
 {
     private GamePanel gp;
-    private KeyHandler keyH;
-    private double jumpImpulse;
-    private boolean jumpReady;
+    private BufferedImage image;
     
     private BufferedImage[] right;
     private BufferedImage[] left;
@@ -17,78 +15,66 @@ public class Player extends Entity
     private int spriteCounter;
     private int spriteNum;
     
-    BufferedImage image;
+    private int direction;
+    private int cycleCounter;
+    private int cycleDuration;
     
-    public Player(GamePanel gp, KeyHandler keyH, double x, double y)
+    public NPC(GamePanel gp, double x, double y, int dir, int cycle)
     {
         this.gp = gp;
-        this.keyH = keyH;
         
         this.x = x;
         this.y = y;
         
+        direction = dir;
+        cycleCounter = 0;
+        cycleDuration = cycle;
+        
         setDefaultStats();
-        getPlayerImage();
+        getNPCImage();
         
         spriteCounter = 0;
         spriteNum = 1;
         
         image = right[0];
     }
-    public void getPlayerImage()
+    public void getNPCImage()
     {
-        right = new BufferedImage[11];
-        left = new BufferedImage[11];
+        right = new BufferedImage[18];
+        left = new BufferedImage[18];
         
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 17; i++) {
+            //try {right[0]= ImageIO.read(getClass().getResourceAsStream("/sprites/Enemy3.png"));}
+            //catch (IOException e) {
+            //e.printStackTrace();}
+            
             try {
-                right[i] = ImageIO.read(getClass().getResourceAsStream("/sprites/crab guy" + (i + 1) + ".png"));
-                left[i] = ImageIO.read(getClass().getResourceAsStream("/sprites/crab guy left" + (i + 1) + ".png"));
+                
+                right[i] = ImageIO.read(getClass().getResourceAsStream("/sprites/Enemy" + (i + 1) + ".png"));
+                left[i] = ImageIO.read(getClass().getResourceAsStream("/sprites/Enemyleft" + (i + 1) + ".png"));
             }
             catch (IOException e) {
     
                 e.printStackTrace();
     
             }
+            
         }
     }
     public void setDefaultStats()
     {
-        baseV = 7.5;
+        baseV = 2.5;
         
         speed = new double[2];
-        speed[0] = 0;
+        speed[0] = direction * baseV;
         speed[1] = 0;
         
         accel = new double[2];
         accel[0] = 0;
         accel[1] = -1 * gravity;
-        
-        jumpImpulse = 12.5;
-        jumpReady = false;
     }
     public void update(ArrayList<Tile> tileList)
     {
-        boolean dir = false;
-        if (keyH.getLeftPressed())
-        {
-            speed[0] = -1 * baseV;
-            dir = true;
-        }
-        if (keyH.getRightPressed())
-        {
-            speed[0] = baseV;
-            dir = true;
-        }
-        if (dir == false || (keyH.getLeftPressed() && keyH.getRightPressed())) {
-            speed[0] = 0;
-        }
-        
-        if (keyH.getSpacePressed() && jumpReady) {
-            jumpReady = false;
-            speed[1] -= jumpImpulse;
-        }
-        
         double newX = x + speed[0];
         double newY = y + speed[1];
         
@@ -122,28 +108,25 @@ public class Player extends Entity
             }
         }
         
-        if (flag) { // checks if grounded
-            jumpReady = true;
-        }
-        else {
-            jumpReady = false;
-        }
-        
         x += speed[0];
         y += speed[1];
         speed[0] += accel[0];
         speed[1] += accel[1];
         
-        if (dir) {
-            spriteCounter++;
-            if (spriteCounter > 1) // how fast the sprites change
-            {
-                spriteNum++;
-                if (spriteNum == 12) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
+        cycleCounter++;
+        if (cycleCounter == cycleDuration) {
+            cycleCounter = 0;
+            speed[0] = speed[0] * -1;
+        }
+        
+        spriteCounter++;
+        if (spriteCounter > 1) // how fast the sprites change
+        {
+            spriteNum++;
+            if (spriteNum == 19) {
+                spriteNum = 1;
             }
+            spriteCounter = 0;
         }
     }
     public void draw(Graphics2D g2, int xPos, int yPos)

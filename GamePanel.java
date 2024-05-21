@@ -19,9 +19,10 @@ public class GamePanel extends JPanel implements Runnable
     Thread gameThread;
     
     // game objects
-    private Player player = new Player(this, keyH);
+    private Player player = new Player(this, keyH, 3 * tileSize, 2 * tileSize);
     private ArrayList<Tile> tileList = new ArrayList<Tile>();
     private ArrayList<Tile> bgTiles = new ArrayList<Tile>();
+    private ArrayList<NPC> npcs = new ArrayList<NPC>();
     
     private double cameraX;
     private double cameraY;
@@ -63,6 +64,9 @@ public class GamePanel extends JPanel implements Runnable
         for (int i = 0; i < 4; i++) {
             tileList.add(new Tile(this, (7 + i) * tileSize, (7) * tileSize, true, "grass"));
         }
+        // create npcs
+        npcs.add(new NPC(this, 10 * tileSize, 2 * tileSize, -1, 70));
+        npcs.add(new NPC(this, 15 * tileSize, 4 * tileSize, -1, 70));
     }
     public void run()
     {
@@ -104,6 +108,9 @@ public class GamePanel extends JPanel implements Runnable
     public void update()
     {
         player.update(tileList);
+        for (NPC npc : npcs) {
+            npc.update(tileList);
+        }
     }
     public double lerp(double start, double end, double t) { // linear interpolation, for camera
         return start + t * (end - start);
@@ -130,6 +137,10 @@ public class GamePanel extends JPanel implements Runnable
         
         for (Tile tile : bgTiles) {
             tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
+        }
+        
+        for (NPC npc : npcs) {
+            npc.draw(g2, (int) Math.round(npc.getX() + cameraX), (int) Math.round(npc.getY() + cameraY));
         }
         
         player.draw(g2, (int) Math.round(player.getX() + cameraX), (int) Math.round(player.getY() + cameraY));
