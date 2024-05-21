@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable
         // create spikes
         for (int i = 1; i < 31; i++) {
             if (i == 6 || i == 12 || i == 25) {
-                tileList.add(new Tile(this, (0 + i) * tileSize, (20) * tileSize, "stone"));
+                tileList.add(new Tile(this, (0 + i) * tileSize, (20) * tileSize, "underwater stone"));
             }
             else {
                 tileList.add(new Tile(this, (0 + i) * tileSize, (20) * tileSize, true, true, false, "spikey coral"));
@@ -64,99 +64,99 @@ public class GamePanel extends JPanel implements Runnable
         }
         // create platforms
         for (int i = 0; i < 32; i++) {
-            tileList.add(new Tile(this, (0 + i) * tileSize, (21) * tileSize, "stone"));
+            tileList.add(new Tile(this, (0 + i) * tileSize, (21) * tileSize, "underwater stone"));
         }
         for (int i = 0; i < 32; i++) {
-            tileList.add(new Tile(this, (0 + i) * tileSize, (-1) * tileSize, "stone"));
+            tileList.add(new Tile(this, (0 + i) * tileSize, (-1) * tileSize, "underwater stone"));
         }
         for (int i = 0; i <= 20; i++) {
-            tileList.add(new Tile(this, (0) * tileSize, (i) * tileSize, "stone"));
+            tileList.add(new Tile(this, (0) * tileSize, (i) * tileSize, "underwater stone"));
         }
         for (int i = 0; i <= 20; i++) {
-            tileList.add(new Tile(this, (31) * tileSize, (i) * tileSize, "stone"));
+            tileList.add(new Tile(this, (31) * tileSize, (i) * tileSize, "underwater stone"));
         }
         //bottom layer
         for (int i = 0; i < 3; i++) {
-            tileList.add(new Tile(this, (1+i) * tileSize, (19) * tileSize, "stone"));
+            tileList.add(new Tile(this, (1+i) * tileSize, (19) * tileSize, "underwater stone"));
         }
-        tileList.add(new Tile(this, (6) * tileSize, (19) * tileSize, "stone"));
-        tileList.add(new Tile(this, (12) * tileSize, (19) * tileSize, "stone"));
+        tileList.add(new Tile(this, (6) * tileSize, (19) * tileSize, "underwater stone"));
+        tileList.add(new Tile(this, (12) * tileSize, (19) * tileSize, "underwater stone"));
         for (int i = 0; i < 5; i++) {
-            tileList.add(new Tile(this, (18+i) * tileSize, (19) * tileSize, "stone"));
+            tileList.add(new Tile(this, (18+i) * tileSize, (19) * tileSize, "underwater stone"));
         }
-        tileList.add(new Tile(this, (25) * tileSize, (19) * tileSize, "stone"));
+        tileList.add(new Tile(this, (25) * tileSize, (19) * tileSize, "underwater stone"));
         //layer2
         for (int i = 0; i < 3; i++) {
-            tileList.add(new Tile(this, (5+i) * tileSize, (18) * tileSize, "stone"));
+            tileList.add(new Tile(this, (5+i) * tileSize, (18) * tileSize, "underwater stone"));
         }
         for (int i = 0; i < 3; i++) {
-            tileList.add(new Tile(this, (11+i) * tileSize, (18) * tileSize, "stone"));
+            tileList.add(new Tile(this, (11+i) * tileSize, (18) * tileSize, "underwater stone"));
         }
         for (int i = 0; i < 3; i++) {
-            tileList.add(new Tile(this, (24+i) * tileSize, (18) * tileSize, "stone"));
+            tileList.add(new Tile(this, (24+i) * tileSize, (18) * tileSize, "underwater stone"));
         }
         //layer3
-        tileList.add(new Tile(this, (29) * tileSize, (17) * tileSize, "stone"));
+        tileList.add(new Tile(this, (29) * tileSize, (17) * tileSize, "underwater stone"));
         //layer4
-        tileList.add(new Tile(this, (30) * tileSize, (16) * tileSize, "stone"));
+        tileList.add(new Tile(this, (30) * tileSize, (16) * tileSize, "underwater stone"));
         //layer5
         //layer6
         npcList.add(new NPC(this, 16 * tileSize, 13 * tileSize, 1, 180));
         for (int i = 0; i < 8; i++) {
-            tileList.add(new Tile(this, (16+i) * tileSize, (14) * tileSize, "stone"));
+            tileList.add(new Tile(this, (16+i) * tileSize, (14) * tileSize, "underwater stone"));
         }
-        tileList.add(new Tile(this, (28) * tileSize, (14) * tileSize, "stone"));
+        tileList.add(new Tile(this, (28) * tileSize, (14) * tileSize, "underwater stone"));
         //layer7
-        tileList.add(new Tile(this, (5) * tileSize, (13) * tileSize, "stone"));
+        tileList.add(new Tile(this, (5) * tileSize, (13) * tileSize, "underwater stone"));
         for (int i = 0; i < 3; i++) {
-            tileList.add(new Tile(this, (12+i) * tileSize, (13) * tileSize, "stone"));
+            tileList.add(new Tile(this, (12+i) * tileSize, (13) * tileSize, "underwater stone"));
         }
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, (24+i) * tileSize, (13) * tileSize, "stone"));
+            tileList.add(new Tile(this, (24+i) * tileSize, (13) * tileSize, "underwater stone"));
         }
         //layer8
-        tileList.add(new Tile(this, (2) * tileSize, (12) * tileSize, "stone"));
-        tileList.add(new Tile(this, (7) * tileSize, (12) * tileSize, "stone"));
+        tileList.add(new Tile(this, (2) * tileSize, (12) * tileSize, "underwater stone"));
+        tileList.add(new Tile(this, (7) * tileSize, (12) * tileSize, "underwater stone"));
         //layer9
-        tileList.add(new Tile(this, (1) * tileSize, (11) * tileSize, "stone"));
+        tileList.add(new Tile(this, (1) * tileSize, (11) * tileSize, "underwater stone"));
         //layer10
         npcList.add(new NPC(this, 23 * tileSize, 9 * tileSize, -1, 180));
         for (int i = 0; i < 8; i++) {
-            tileList.add(new Tile(this, (16+i) * tileSize, (10) * tileSize, "stone"));
+            tileList.add(new Tile(this, (16+i) * tileSize, (10) * tileSize, "underwater stone"));
         }
-        tileList.add(new Tile(this, (28) * tileSize, (10) * tileSize, "stone"));
+        tileList.add(new Tile(this, (28) * tileSize, (10) * tileSize, "underwater stone"));
         //layer11
-        tileList.add(new Tile(this, (3) * tileSize, (9) * tileSize, "stone"));
+        tileList.add(new Tile(this, (3) * tileSize, (9) * tileSize, "underwater stone"));
         for (int i = 0; i < 2; i++) {
-            tileList.add(new Tile(this, (14+i) * tileSize, (9) * tileSize, "stone"));
+            tileList.add(new Tile(this, (14+i) * tileSize, (9) * tileSize, "underwater stone"));
         }
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, (24+i) * tileSize, (9) * tileSize, "stone"));
+            tileList.add(new Tile(this, (24+i) * tileSize, (9) * tileSize, "underwater stone"));
         }
         //layer12
         npcList.add(new NPC(this, 10 * tileSize, 7 * tileSize, -1, 150));
         for (int i = 0; i < 7; i++) {
-            tileList.add(new Tile(this, (4+i) * tileSize, (8) * tileSize, "stone"));
+            tileList.add(new Tile(this, (4+i) * tileSize, (8) * tileSize, "underwater stone"));
         }
-        tileList.add(new Tile(this, (30) * tileSize, (8) * tileSize, "stone"));
+        tileList.add(new Tile(this, (30) * tileSize, (8) * tileSize, "underwater stone"));
         //layer13
         //layer14
-        tileList.add(new Tile(this, (28) * tileSize, (6) * tileSize, "stone"));
+        tileList.add(new Tile(this, (28) * tileSize, (6) * tileSize, "underwater stone"));
         //layer15
         npcList.add(new NPC(this, 21 * tileSize, 4 * tileSize, 1, 150));
         for (int i = 0; i < 7; i++) {
-            tileList.add(new Tile(this, (21+i) * tileSize, (5) * tileSize, "stone"));
+            tileList.add(new Tile(this, (21+i) * tileSize, (5) * tileSize, "underwater stone"));
         }
         for (int i = 0; i < 2; i ++) {
-            tileList.add(new Tile(this, (15 + i) * tileSize, (5) * tileSize, "stone"));
+            tileList.add(new Tile(this, (15 + i) * tileSize, (5) * tileSize, "underwater stone"));
         }
         //layer16
         for (int i = 0; i < 2; i ++) {
-            tileList.add(new Tile(this, (9 + i) * tileSize, (4) * tileSize, "stone"));
+            tileList.add(new Tile(this, (9 + i) * tileSize, (4) * tileSize, "underwater stone"));
         }
         //layer17
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, (1+i) * tileSize, (3) * tileSize, "stone"));
+            tileList.add(new Tile(this, (1+i) * tileSize, (3) * tileSize, "underwater stone"));
         }
     }
     public void run()
