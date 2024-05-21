@@ -161,7 +161,7 @@ public class NPC extends Entity
         return isDead;
     }
     public void kill() {
-        speed[1] = -2.5;
+        speed[1] = -5;
         isDead = true;
     }
 }

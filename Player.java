@@ -142,7 +142,7 @@ public class Player extends Entity
                 }
                 else if (this.isTouching(x, newY, npc, gp.tileSize, gp.tileSize, gp.tileSize, gp.tileSize)) {
                     if (newY > y) {
-                        speed[1] = -5;
+                        speed[1] = -7.5;
                         npc.kill();
                     }
                     else if (newY < y) {

@@ -150,12 +150,18 @@ public class GamePanel extends JPanel implements Runnable
         
         
         if (player.getIsDead()) {
+            g2.setColor(new Color(0, 0, 0, 20)); // RGB with alpha for transparency
+            g2.fillRect(0, 0, getWidth(), getHeight());
+            
             g2.setFont(new Font("Serif", Font.BOLD, 128));
             g2.setColor(Color.RED.darker());
+            
             String text = "YOU DIED";
             FontMetrics fm = g2.getFontMetrics();
+            
             int x = (getWidth() - fm.stringWidth(text)) / 2;
             int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
+            
             g2.drawString(text, x, y);
         }
         
