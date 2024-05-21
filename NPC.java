@@ -19,6 +19,8 @@ public class NPC extends Entity
     private int cycleCounter;
     private int cycleDuration;
     
+    private boolean isDead;
+    
     public NPC(GamePanel gp, double x, double y, int dir, int cycle)
     {
         this.gp = gp;
@@ -72,38 +74,55 @@ public class NPC extends Entity
         accel = new double[2];
         accel[0] = 0;
         accel[1] = -1 * gravity;
+        
+        isDead = false;
     }
     public void update(ArrayList<Tile> tileList)
     {
+        cycleCounter++;
+        if (cycleCounter == cycleDuration) {
+            cycleCounter = 0;
+            direction *= -1;
+        }
+        
+        if (isDead) {
+            speed[0] = 0;
+        }
+        else {
+            speed[0] = direction * baseV;
+        }
+        
         double newX = x + speed[0];
         double newY = y + speed[1];
         
         boolean flag = false;
         
-        for (Tile tile : tileList) { // also need one for enemies/npcs later
-            if (tile.getIsSolid() == false)
-            {
-                continue;
-            }
-            if (this.isTouching(newX + 0.005, y + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
-                speed[0] = 0;
-                if (newX > x) {
-                    x = tile.getX() - gp.tileSize - 0.001; // don't remove 0.001
+        if (!isDead) {
+            for (Tile tile : tileList) { // also need one for enemies/npcs later
+                if (tile.getIsSolid() == false)
+                {
+                    continue;
                 }
-                else if (newX < x) {
-                    x = tile.getX() + gp.tileSize + 0.001;
+                if (this.isTouching(newX + 0.005, y + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
+                    speed[0] = 0;
+                    if (newX > x) {
+                        x = tile.getX() - gp.tileSize - 0.001; // don't remove 0.001
+                    }
+                    else if (newX < x) {
+                        x = tile.getX() + gp.tileSize + 0.001;
+                    }
                 }
-            }
-            if (this.isTouching(x + 0.005, newY + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
-                speed[1] = 0;
-                if (newY  > y) {
-                    flag = true;
-                }
-                if (newY > y) {
-                    y = tile.getY() - gp.tileSize - 0.001;
-                }
-                else if (newY < y) {
-                    y = tile.getY() + gp.tileSize + 0.001;
+                if (this.isTouching(x + 0.005, newY + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
+                    speed[1] = 0;
+                    if (newY  > y) {
+                        flag = true;
+                    }
+                    if (newY > y) {
+                        y = tile.getY() - gp.tileSize - 0.001;
+                    }
+                    else if (newY < y) {
+                        y = tile.getY() + gp.tileSize + 0.001;
+                    }
                 }
             }
         }
@@ -112,12 +131,6 @@ public class NPC extends Entity
         y += speed[1];
         speed[0] += accel[0];
         speed[1] += accel[1];
-        
-        cycleCounter++;
-        if (cycleCounter == cycleDuration) {
-            cycleCounter = 0;
-            speed[0] = speed[0] * -1;
-        }
         
         spriteCounter++;
         if (spriteCounter > 1) // how fast the sprites change
@@ -140,5 +153,15 @@ public class NPC extends Entity
             image = left[spriteNum - 1];
         }
         g2.drawImage(image, xPos, yPos, gp.tileSize, gp.tileSize, null);
+    }
+    public int getDirection() {
+        return direction;
+    }
+    public boolean getIsDead() {
+        return isDead;
+    }
+    public void kill() {
+        speed[1] = -2.5;
+        isDead = true;
     }
 }

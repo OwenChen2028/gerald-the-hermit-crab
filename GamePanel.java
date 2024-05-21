@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable
     private Player player = new Player(this, keyH, 3 * tileSize, 2 * tileSize);
     private ArrayList<Tile> tileList = new ArrayList<Tile>();
     private ArrayList<Tile> bgTiles = new ArrayList<Tile>();
-    private ArrayList<NPC> npcs = new ArrayList<NPC>();
+    private ArrayList<NPC> npcList = new ArrayList<NPC>();
     
     private double cameraX;
     private double cameraY;
@@ -65,8 +65,8 @@ public class GamePanel extends JPanel implements Runnable
             tileList.add(new Tile(this, (7 + i) * tileSize, (7) * tileSize, true, "grass"));
         }
         // create npcs
-        npcs.add(new NPC(this, 10 * tileSize, 2 * tileSize, -1, 70));
-        npcs.add(new NPC(this, 15 * tileSize, 4 * tileSize, -1, 70));
+        npcList.add(new NPC(this, 10 * tileSize, 2 * tileSize, -1, 70));
+        npcList.add(new NPC(this, 15 * tileSize, 4 * tileSize, -1, 70));
     }
     public void run()
     {
@@ -107,8 +107,8 @@ public class GamePanel extends JPanel implements Runnable
     }
     public void update()
     {
-        player.update(tileList);
-        for (NPC npc : npcs) {
+        player.update(tileList, npcList);
+        for (NPC npc : npcList) {
             npc.update(tileList);
         }
     }
@@ -128,8 +128,10 @@ public class GamePanel extends JPanel implements Runnable
         } */
         
         // move camera
-        cameraX = lerp(cameraX, screenWidth / 2 - player.getX() - tileSize / 2, 0.1);
-        cameraY = lerp(cameraY, screenHeight / 2 - player.getY() - tileSize / 2, 0.05);
+        if (!player.getIsDead()) {
+            cameraX = lerp(cameraX, screenWidth / 2 - player.getX() - tileSize / 2, 0.1);
+            cameraY = lerp(cameraY, screenHeight / 2 - player.getY() - tileSize / 2, 0.05);
+        }
         
         for (Tile tile : tileList) {
             tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
@@ -139,11 +141,23 @@ public class GamePanel extends JPanel implements Runnable
             tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
         }
         
-        for (NPC npc : npcs) {
+        for (NPC npc : npcList) {
             npc.draw(g2, (int) Math.round(npc.getX() + cameraX), (int) Math.round(npc.getY() + cameraY));
         }
         
         player.draw(g2, (int) Math.round(player.getX() + cameraX), (int) Math.round(player.getY() + cameraY));
+        
+        
+        
+        if (player.getIsDead()) {
+            g2.setFont(new Font("Serif", Font.BOLD, 128));
+            g2.setColor(Color.RED.darker());
+            String text = "YOU DIED";
+            FontMetrics fm = g2.getFontMetrics();
+            int x = (getWidth() - fm.stringWidth(text)) / 2;
+            int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
+            g2.drawString(text, x, y);
+        }
         
         g2.dispose();
     }
