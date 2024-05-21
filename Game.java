@@ -1,13 +1,12 @@
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Game
 {
-    public static void main(String[] args)
-    {
+    public Game() {
         JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("2D Platformer");
+        window.setTitle("2d Platformer");
         
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
@@ -19,5 +18,12 @@ public class Game
         
         gamePanel.createGameObjects();
         gamePanel.startGameThread();
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Game();
+            }
+        });
     }
 }
