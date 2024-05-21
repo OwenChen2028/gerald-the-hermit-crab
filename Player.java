@@ -18,6 +18,7 @@ public class Player extends Entity
     private int spriteNum;
     
     private boolean isDead;
+    private boolean isWon;
     
     BufferedImage image;
     
@@ -73,6 +74,10 @@ public class Player extends Entity
     }
     public void update(ArrayList<Tile> tileList, ArrayList<NPC> npcList)
     {
+        if (isWon) {
+            return;
+        }
+        
         boolean dir = false;
         if (!isDead) {
             if (keyH.getLeftPressed())
@@ -104,6 +109,17 @@ public class Player extends Entity
                 if (tile.getIsSolid() == false)
                 {
                     continue;
+                }
+                if (this.isTouching(newX, newY, tile, gp.tileSize, gp.tileSize, gp.tileSize, gp.tileSize)) {
+                    if (tile.getIsDeadly()) {
+                        speed[0] = 0;
+                        speed[1] = -5;
+                        isDead = true;
+                        break;
+                    }
+                    if (tile.getIsExit()) {
+                        isWon = true;
+                    }
                 }
                 if (this.isTouching(newX + 0.005, y + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
                     speed[0] = 0;
@@ -192,5 +208,8 @@ public class Player extends Entity
     }
     public boolean getIsDead() {
         return isDead;
+    }
+    public boolean getIsWon() {
+        return isWon;
     }
 }

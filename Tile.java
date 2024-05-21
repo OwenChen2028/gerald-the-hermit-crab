@@ -8,22 +8,40 @@ public class Tile extends Entity
     private GamePanel gp;
     private BufferedImage image;
     private boolean isSolid;
+    private boolean isDeadly;
+    private boolean isExit;
     private String tileName;
     
-    public Tile(GamePanel gp, double x, double y, boolean isSolid, String tileName)
+    public Tile(GamePanel gp, double x, double y, String tileName)
     {
         this.gp = gp;
         this.x = x;
         this.y = y;
-        speed = new double[2];
-        accel = new double[2];
+        this.isSolid = true;
+        this.isDeadly = false;
+        this.tileName = tileName;
+        getTileImage();
+    }
+    public Tile(GamePanel gp, double x, double y, boolean isSolid, boolean isDeadly, boolean isExit, String tileName)
+    {
+        this.gp = gp;
+        this.x = x;
+        this.y = y;
         this.isSolid = isSolid;
+        this.isDeadly = isDeadly;
+        this.isExit = isExit;
         this.tileName = tileName;
         getTileImage();
     }
     public boolean getIsSolid()
     {
         return isSolid;
+    }
+    public boolean getIsDeadly() {
+        return isDeadly;
+    }
+    public boolean getIsExit() {
+        return isExit;
     }
     public void getTileImage()
     {

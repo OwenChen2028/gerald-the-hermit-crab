@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable
     Thread gameThread;
     
     // game objects
-    private Player player = new Player(this, keyH, 3 * tileSize, 2 * tileSize);
+    private Player player;
     private ArrayList<Tile> tileList = new ArrayList<Tile>();
     private ArrayList<Tile> bgTiles = new ArrayList<Tile>();
     private ArrayList<NPC> npcList = new ArrayList<NPC>();
@@ -41,32 +41,123 @@ public class GamePanel extends JPanel implements Runnable
     public void startGameThread()
     {
         gameThread = new Thread(this);
-        gameThread.start();
+        gameThread.start();        
     }
     public void createGameObjects() {
+        player = new Player(this, keyH, 2 * tileSize, 18 * tileSize);
         // create background
-        for (int i = 0; i <= 20; i++) {
-            for (int j = 0; j <= 10; j++) {
-                tileList.add(new Tile(this, (0 + i) * tileSize, (0 + j) * tileSize, false, "sky background"));
+        /* for (int i = 1; i < 32; i++) {
+            for (int j = 0; j <= 20; j++) {
+                tileList.add(new Tile(this, (0 + i) * tileSize, (0 + j) * tileSize, false, false, "sky background"));
+            }
+        } */
+        // create exit
+        tileList.add(new Tile(this, (2) * tileSize, (2) * tileSize, true, false, true, "shell home"));
+        // create spikes
+        for (int i = 1; i < 31; i++) {
+            if (i == 6 || i == 12 || i == 25) {
+                tileList.add(new Tile(this, (0 + i) * tileSize, (20) * tileSize, "stone"));
+            }
+            else {
+                tileList.add(new Tile(this, (0 + i) * tileSize, (20) * tileSize, true, true, false, "spikey coral"));
             }
         }
         // create platforms
-        for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, (2 + i) * tileSize, (5) * tileSize, true, "grass"));
+        for (int i = 0; i < 32; i++) {
+            tileList.add(new Tile(this, (0 + i) * tileSize, (21) * tileSize, "stone"));
+        }
+        for (int i = 0; i < 32; i++) {
+            tileList.add(new Tile(this, (0 + i) * tileSize, (-1) * tileSize, "stone"));
+        }
+        for (int i = 0; i <= 20; i++) {
+            tileList.add(new Tile(this, (0) * tileSize, (i) * tileSize, "stone"));
+        }
+        for (int i = 0; i <= 20; i++) {
+            tileList.add(new Tile(this, (31) * tileSize, (i) * tileSize, "stone"));
+        }
+        //bottom layer
+        for (int i = 0; i < 3; i++) {
+            tileList.add(new Tile(this, (1+i) * tileSize, (19) * tileSize, "stone"));
+        }
+        tileList.add(new Tile(this, (6) * tileSize, (19) * tileSize, "stone"));
+        tileList.add(new Tile(this, (12) * tileSize, (19) * tileSize, "stone"));
+        for (int i = 0; i < 5; i++) {
+            tileList.add(new Tile(this, (18+i) * tileSize, (19) * tileSize, "stone"));
+        }
+        tileList.add(new Tile(this, (25) * tileSize, (19) * tileSize, "stone"));
+        //layer2
+        for (int i = 0; i < 3; i++) {
+            tileList.add(new Tile(this, (5+i) * tileSize, (18) * tileSize, "stone"));
+        }
+        for (int i = 0; i < 3; i++) {
+            tileList.add(new Tile(this, (11+i) * tileSize, (18) * tileSize, "stone"));
+        }
+        for (int i = 0; i < 3; i++) {
+            tileList.add(new Tile(this, (24+i) * tileSize, (18) * tileSize, "stone"));
+        }
+        //layer3
+        tileList.add(new Tile(this, (29) * tileSize, (17) * tileSize, "stone"));
+        //layer4
+        tileList.add(new Tile(this, (30) * tileSize, (16) * tileSize, "stone"));
+        //layer5
+        //layer6
+        npcList.add(new NPC(this, 16 * tileSize, 13 * tileSize, 1, 180));
+        for (int i = 0; i < 8; i++) {
+            tileList.add(new Tile(this, (16+i) * tileSize, (14) * tileSize, "stone"));
+        }
+        tileList.add(new Tile(this, (28) * tileSize, (14) * tileSize, "stone"));
+        //layer7
+        tileList.add(new Tile(this, (5) * tileSize, (13) * tileSize, "stone"));
+        for (int i = 0; i < 3; i++) {
+            tileList.add(new Tile(this, (12+i) * tileSize, (13) * tileSize, "stone"));
         }
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, (12 + i) * tileSize, (5) * tileSize, true, "grass"));
+            tileList.add(new Tile(this, (24+i) * tileSize, (13) * tileSize, "stone"));
+        }
+        //layer8
+        tileList.add(new Tile(this, (2) * tileSize, (12) * tileSize, "stone"));
+        tileList.add(new Tile(this, (7) * tileSize, (12) * tileSize, "stone"));
+        //layer9
+        tileList.add(new Tile(this, (1) * tileSize, (11) * tileSize, "stone"));
+        //layer10
+        npcList.add(new NPC(this, 23 * tileSize, 9 * tileSize, -1, 180));
+        for (int i = 0; i < 8; i++) {
+            tileList.add(new Tile(this, (16+i) * tileSize, (10) * tileSize, "stone"));
+        }
+        tileList.add(new Tile(this, (28) * tileSize, (10) * tileSize, "stone"));
+        //layer11
+        tileList.add(new Tile(this, (3) * tileSize, (9) * tileSize, "stone"));
+        for (int i = 0; i < 2; i++) {
+            tileList.add(new Tile(this, (14+i) * tileSize, (9) * tileSize, "stone"));
         }
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, (7 + i) * tileSize, (3) * tileSize, true, "grass"));
+            tileList.add(new Tile(this, (24+i) * tileSize, (9) * tileSize, "stone"));
         }
-        
+        //layer12
+        npcList.add(new NPC(this, 10 * tileSize, 7 * tileSize, -1, 150));
+        for (int i = 0; i < 7; i++) {
+            tileList.add(new Tile(this, (4+i) * tileSize, (8) * tileSize, "stone"));
+        }
+        tileList.add(new Tile(this, (30) * tileSize, (8) * tileSize, "stone"));
+        //layer13
+        //layer14
+        tileList.add(new Tile(this, (28) * tileSize, (6) * tileSize, "stone"));
+        //layer15
+        npcList.add(new NPC(this, 21 * tileSize, 4 * tileSize, 1, 150));
+        for (int i = 0; i < 7; i++) {
+            tileList.add(new Tile(this, (21+i) * tileSize, (5) * tileSize, "stone"));
+        }
+        for (int i = 0; i < 2; i ++) {
+            tileList.add(new Tile(this, (15 + i) * tileSize, (5) * tileSize, "stone"));
+        }
+        //layer16
+        for (int i = 0; i < 2; i ++) {
+            tileList.add(new Tile(this, (9 + i) * tileSize, (4) * tileSize, "stone"));
+        }
+        //layer17
         for (int i = 0; i < 4; i++) {
-            tileList.add(new Tile(this, (7 + i) * tileSize, (7) * tileSize, true, "grass"));
+            tileList.add(new Tile(this, (1+i) * tileSize, (3) * tileSize, "stone"));
         }
-        // create npcs
-        npcList.add(new NPC(this, 10 * tileSize, 2 * tileSize, -1, 70));
-        npcList.add(new NPC(this, 15 * tileSize, 4 * tileSize, -1, 70));
     }
     public void run()
     {
@@ -150,13 +241,30 @@ public class GamePanel extends JPanel implements Runnable
         
         
         if (player.getIsDead()) {
-            g2.setColor(new Color(0, 0, 0, 20)); // RGB with alpha for transparency
+            g2.setColor(new Color(0, 0, 0, 128)); // transparent black
             g2.fillRect(0, 0, getWidth(), getHeight());
             
             g2.setFont(new Font("Serif", Font.BOLD, 128));
             g2.setColor(Color.RED.darker());
             
             String text = "YOU DIED";
+            FontMetrics fm = g2.getFontMetrics();
+            
+            int x = (getWidth() - fm.stringWidth(text)) / 2;
+            int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
+            
+            g2.drawString(text, x, y);
+        }
+        
+        if (player.getIsWon()) {
+            int alpha = 128; // or any value between 0 (fully transparent) and 255 (fully opaque)
+            g2.setColor(new Color(0, 0, 0, alpha)); // transparent black
+            g2.fillRect(0, 0, getWidth(), getHeight());
+            
+            g2.setFont(new Font("Serif", Font.BOLD, 128));
+            g2.setColor(Color.GREEN.darker());
+            
+            String text = "YOU WIN";
             FontMetrics fm = g2.getFontMetrics();
             
             int x = (getWidth() - fm.stringWidth(text)) / 2;
