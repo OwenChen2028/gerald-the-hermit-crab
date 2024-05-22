@@ -6,7 +6,7 @@ public class Game
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("2d Platformer");
+        window.setTitle("Gerald the Hermit Crab");
         
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);

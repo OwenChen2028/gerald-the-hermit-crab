@@ -19,7 +19,7 @@ public class Launcher extends JFrame {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        JLabel titleLabel = new JLabel("Game Title", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Gerald the Hermit Crab", SwingConstants.CENTER);
         titleLabel.setForeground(Color.LIGHT_GRAY);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titleLabel, gbc);

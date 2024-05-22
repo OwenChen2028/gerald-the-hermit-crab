@@ -240,7 +240,7 @@ public class GamePanel extends JPanel implements Runnable
             }
         }
         
-        g2.drawImage(bg, (int) Math.round(cameraX), (int) Math.round(cameraY), 32 * tileSize, 21 * tileSize, null);
+        g2.drawImage(bg, 0, 0, 1024, 640, null);
             
         for (Tile tile : tileList) {
             tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
