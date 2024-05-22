@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 //Written 5/6/24
 public class GamePanel extends JPanel implements Runnable
@@ -21,8 +24,10 @@ public class GamePanel extends JPanel implements Runnable
     // game objects
     private Player player;
     private ArrayList<Tile> tileList = new ArrayList<Tile>();
-    private ArrayList<Tile> bgTiles = new ArrayList<Tile>();
     private ArrayList<NPC> npcList = new ArrayList<NPC>();
+    
+    // background
+    BufferedImage bg = null;
     
     private double cameraX;
     private double cameraY;
@@ -101,9 +106,9 @@ public class GamePanel extends JPanel implements Runnable
         tileList.add(new Tile(this, (30) * tileSize, (16) * tileSize, "underwater stone"));
         //layer5
         //layer6
-        npcList.add(new NPC(this, 16 * tileSize, 13 * tileSize, 1, 180));
-        for (int i = 0; i < 8; i++) {
-            tileList.add(new Tile(this, (16+i) * tileSize, (14) * tileSize, "underwater stone"));
+        npcList.add(new NPC(this, 17 * tileSize, 13 * tileSize, 1, 150));
+        for (int i = 0; i < 7; i++) {
+            tileList.add(new Tile(this, (17+i) * tileSize, (14) * tileSize, "underwater stone"));
         }
         tileList.add(new Tile(this, (28) * tileSize, (14) * tileSize, "underwater stone"));
         //layer7
@@ -224,11 +229,20 @@ public class GamePanel extends JPanel implements Runnable
             cameraY = lerp(cameraY, screenHeight / 2 - player.getY() - tileSize / 2, 0.05);
         }
         
-        for (Tile tile : tileList) {
-            tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
+        if (bg == null) {
+            try {
+                bg = ImageIO.read(getClass().getResourceAsStream("/sprites/underwater background.png"));
+            }
+            catch (IOException e) {
+    
+                e.printStackTrace();
+    
+            }
         }
         
-        for (Tile tile : bgTiles) {
+        g2.drawImage(bg, (int) Math.round(cameraX), (int) Math.round(cameraY), 32 * tileSize, 21 * tileSize, null);
+            
+        for (Tile tile : tileList) {
             tile.draw(g2, (int) Math.round(tile.getX() + cameraX), (int) Math.round(tile.getY() + cameraY));
         }
         
@@ -237,8 +251,6 @@ public class GamePanel extends JPanel implements Runnable
         }
         
         player.draw(g2, (int) Math.round(player.getX() + cameraX), (int) Math.round(player.getY() + cameraY));
-        
-        
         
         if (player.getIsDead()) {
             g2.setColor(new Color(0, 0, 0, 128)); // transparent black
