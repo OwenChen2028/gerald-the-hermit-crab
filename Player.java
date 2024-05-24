@@ -19,6 +19,7 @@ public class Player extends Entity
     
     private boolean isDead;
     private boolean isWon;
+    private int wompCounter;
     
     BufferedImage image;
     
@@ -37,6 +38,8 @@ public class Player extends Entity
         spriteNum = 1;
         
         image = right[0];
+        
+        wompCounter = 0;
     }
     public void getPlayerImage()
     {
@@ -96,6 +99,7 @@ public class Player extends Entity
             if (keyH.getSpacePressed() && jumpReady) {
                 jumpReady = false;
                 speed[1] -= jumpImpulse;
+                GamePanel.playMusic("underwater-movement-whoosh-3-186900.wav");
             }
         }
         
@@ -119,6 +123,7 @@ public class Player extends Entity
                     }
                     if (tile.getIsExit()) {
                         isWon = true;
+                        GamePanel.playMusic("success-fanfare-trumpets-6185.wav");
                     }
                 }
                 if (this.isTouching(newX + 0.005, y + 0.005, tile, gp.tileSize - 0.01, gp.tileSize - 0.01, gp.tileSize, gp.tileSize)) {
@@ -160,6 +165,7 @@ public class Player extends Entity
                     if (newY > y) {
                         speed[1] = -7.5;
                         npc.kill();
+                        GamePanel.playMusic("8-bit-fireball-81148.wav");
                     }
                     else if (newY < y) {
                         speed[0] = 0;
@@ -192,6 +198,11 @@ public class Player extends Entity
                 }
                 spriteCounter = 0;
             }
+        }
+        if (isDead && wompCounter == 0)
+        {
+            wompCounter = 1;
+            GamePanel.playMusic("womp-womp[1].wav");
         }
     }
     public void draw(Graphics2D g2, int xPos, int yPos)
