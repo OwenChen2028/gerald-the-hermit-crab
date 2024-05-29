@@ -16,4 +16,6 @@ comment7.params=g
 comment7.target=void\ paintComponent(java.awt.Graphics)
 comment8.params=location
 comment8.target=void\ playMusic(java.lang.String)
-numComments=9
+comment9.params=
+comment9.target=void\ stopMusic()
+numComments=10

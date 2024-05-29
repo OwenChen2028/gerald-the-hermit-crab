@@ -8,7 +8,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-
 //Written 5/6/24
 public class GamePanel extends JPanel implements Runnable
 {
@@ -38,6 +37,8 @@ public class GamePanel extends JPanel implements Runnable
 
     //FPS
     private int fps = 60;
+    
+    private ArrayList<Clip> clips = new ArrayList<>();
     
     public GamePanel()
     {
@@ -293,7 +294,7 @@ public class GamePanel extends JPanel implements Runnable
         g2.dispose();
     }
     
-    public static void playMusic(String location)
+    public void playMusic(String location)
     {
         try
         {
@@ -304,6 +305,7 @@ public class GamePanel extends JPanel implements Runnable
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInput);
                 clip.start();
+                clips.add(clip);
             }
             else
             {
@@ -314,5 +316,15 @@ public class GamePanel extends JPanel implements Runnable
         {
             e.printStackTrace();
         }
+    }
+    
+    public void stopMusic() {
+        for (Clip clip : clips) {
+            if (clip != null && clip.isRunning()) {
+                clip.stop();
+                clip.close();
+            }
+        }
+        clips.clear();
     }
 }
