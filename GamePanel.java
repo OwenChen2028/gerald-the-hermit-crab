@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 //Written 5/6/24
 public class GamePanel extends JPanel implements Runnable
@@ -35,6 +38,8 @@ public class GamePanel extends JPanel implements Runnable
     //FPS
     private int fps = 60;
     
+    private ArrayList<Clip> clips = new ArrayList<>();
+    
     public GamePanel()
     {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -46,7 +51,8 @@ public class GamePanel extends JPanel implements Runnable
     public void startGameThread()
     {
         gameThread = new Thread(this);
-        gameThread.start();        
+        gameThread.start();
+        playMusic("drunken-sailor-sea-shanty-8-bit-tribute-to-irish-rovers-8-bit-universe-3zLNMJcerU0.wav");
     }
     public void createGameObjects() {
         player = new Player(this, keyH, 2 * tileSize, 18 * tileSize);
@@ -288,4 +294,37 @@ public class GamePanel extends JPanel implements Runnable
         g2.dispose();
     }
     
+    public void playMusic(String location)
+    {
+        try
+        {
+            File musicPath = new File(location);
+            if(musicPath.exists())
+            {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+                clips.add(clip);
+            }
+            else
+            {
+                System.out.println("Can't find music file");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public void stopMusic() {
+        for (Clip clip : clips) {
+            if (clip != null && clip.isRunning()) {
+                clip.stop();
+                clip.close();
+            }
+        }
+        clips.clear();
+    }
 }

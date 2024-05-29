@@ -2,8 +2,10 @@
 comment0.target=Game
 comment1.params=
 comment1.target=Game()
-comment2.params=args
-comment2.target=void\ main(java.lang.String[])
-comment3.params=
-comment3.target=void\ run()
-numComments=4
+comment2.params=windowEvent
+comment2.target=void\ windowClosing(java.awt.event.WindowEvent)
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+comment4.params=
+comment4.target=void\ run()
+numComments=5

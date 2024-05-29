@@ -18,6 +18,12 @@ public class Game
         
         gamePanel.createGameObjects();
         gamePanel.startGameThread();
+        
+        window.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                gamePanel.stopMusic();
+            }
+        });
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
